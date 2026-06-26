@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place Order — Cafe Luma</title>
+<meta name="description" content="Order your favorite coffees, teas, desserts and snacks from Cafe Luma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- GLOBAL DIAMOND CANVAS -->
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html" class="active">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Seamless Ordering</div>
+    <h1>Your <em>Order</em></h1>
+    <p>Review your cart, adjust quantities, and place your order in seconds.</p>
+  </div>
+</div>
+
+<!-- ORDER SECTION -->
+<section id="order-section" style="background:linear-gradient(135deg,var(--cream) 0%,var(--beige) 55%,var(--warm-tan) 100%);position:relative;z-index:1;padding-top:3rem">
+  <div class="container order-experience-grid">
+    <!-- Left: Menu quick-add + info -->
+    <div class="order-copy reveal">
+      <div class="section-label">Quick Add</div>
+      <h2 class="section-title">Add More <em>Items</em></h2>
+      <p class="section-desc" style="margin-bottom:1.5rem">Browse below or go back to our full menu to add more items to your order.</p>
+
+      <div class="order-steps">
+        <div class="order-step"><span>01</span><div><strong>Pick</strong><small>Choose your drink, dessert, or snack.</small></div></div>
+        <div class="order-step"><span>02</span><div><strong>Review</strong><small>Adjust quantities in your cart.</small></div></div>
+        <div class="order-step"><span>03</span><div><strong>Confirm</strong><small>Place your cafe order instantly.</small></div></div>
+      </div>
+
+      <!-- Mini Menu on order page -->
+      <div class="section-label" style="margin-top:1rem">Quick Add from Menu</div>
+      <div id="orderMiniMenu" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:.75rem"></div>
+
+      <div style="margin-top:1.5rem">
+        <a href="index.html" class="btn-primary">Browse Full Menu →</a>
+      </div>
+    </div>
+
+    <!-- Right: Cart -->
+    <div class="order-cart-card reveal">
+      <div class="order-cart-head">
+        <div>
+          <div class="section-label">Your Cart</div>
+          <h3>Current Order</h3>
+        </div>
+        <span class="cart-pill" id="cartItemCount">0 items</span>
+      </div>
+      <div class="cart-empty" id="cartEmpty" style="display:flex">
+        <strong>Your cart is empty</strong>
+        <span>Add coffee, tea, desserts, or snacks from the menu.</span>
+        <a href="index.html" class="btn-primary" style="margin-top:1rem;text-align:center">Go to Menu →</a>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <strong id="cartTotal">Rs. 0</strong>
+      </div>
+      <div class="cart-actions">
+        <button class="btn-outline cart-clear" onclick="clearCart()">Clear</button>
+        <button class="btn-primary cart-checkout" onclick="placeOrder()">Place Order ✦</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Order Success Modal -->
+<div class="order-success-modal" id="orderSuccessModal">
+  <div class="order-success-inner">
+    <span class="order-success-icon">🎉</span>
+    <div class="order-success-title">Order Placed!</div>
+    <div class="order-success-sub">
+      <strong id="orderSuccessCount">0</strong> item(s) confirmed for <strong id="orderSuccessTotal">Rs. 0</strong>.<br>
+      We'll have your order ready shortly. Thank you!
+    </div>
+    <a href="index.html" class="btn-primary" style="margin-right:.75rem" onclick="document.getElementById('orderSuccessModal').classList.remove('show')">Order More</a>
+    <button class="btn-outline" onclick="document.getElementById('orderSuccessModal').classList.remove('show')">Close</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="events.html">Events</a></li>
+      <li><a href="birthday.html">Birthday Club</a></li><li><a href="reservation.html">Reserve</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <p style="color:rgba(255,248,240,.5);font-size:.85rem;margin-bottom:.75rem">Get exclusive offers and updates.</p>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">💬</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-avatar">☕</div>
+    <div class="chat-header-info"><div class="name">Luma Assistant</div><div class="status">● Online</div></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="quick-replies"><button class="qr-btn" onclick="sendQuickReply('Menu')">📋 Menu</button><button class="qr-btn" onclick="sendQuickReply('Hours')">⏰ Hours</button></div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+
+<script src="shared.js"></script>
+<script>
+// ===== ORDER PAGE DATA =====
+const menuItems=[
+  {id:1,name:'Signature Espresso',cat:'coffee',emoji:'☕',price:149,rating:4.9,desc:'Rich double shot with a velvety crema.',badge:'popular'},
+  {id:2,name:'Hazelnut Cold Brew',cat:'coffee',emoji:'🧋',price:199,rating:4.8,desc:'18-hour cold brew with hazelnut syrup.',badge:'new'},
+  {id:3,name:'Honey Lavender Latte',cat:'coffee',emoji:'🌸',price:219,rating:4.7,desc:'Espresso with honey and dried lavender.',badge:''},
+  {id:4,name:'Cardamom Chai',cat:'tea',emoji:'🍵',price:159,rating:4.8,desc:'Masala chai with cardamom and ginger.',badge:'popular'},
+  {id:5,name:'Rose Hibiscus Tea',cat:'tea',emoji:'🌹',price:149,rating:4.6,desc:'Floral cold-brew hibiscus with rose petals.',badge:''},
+  {id:6,name:'Matcha Mist',cat:'tea',emoji:'🍃',price:179,rating:4.7,desc:'Ceremonial-grade matcha with oat milk.',badge:'new'},
+  {id:7,name:'Tiramisu Cake',cat:'dessert',emoji:'🎂',price:299,rating:4.9,desc:'Classic Italian tiramisu.',badge:'popular'},
+  {id:8,name:'Crème Brûlée',cat:'dessert',emoji:'🍮',price:279,rating:4.8,desc:'Silky vanilla custard with caramelized crust.',badge:''},
+  {id:9,name:'Walnut Brownie',cat:'dessert',emoji:'🍫',price:199,rating:4.7,desc:'Fudgy dark chocolate brownie.',badge:''},
+  {id:10,name:'Butter Croissant',cat:'snack',emoji:'🥐',price:129,rating:4.8,desc:'Flaky all-butter croissant.',badge:'popular'},
+  {id:11,name:'Avocado Toast',cat:'snack',emoji:'🥑',price:249,rating:4.6,desc:'Sourdough with smashed avocado.',badge:''},
+  {id:12,name:'Cheese Panini',cat:'snack',emoji:'🥪',price:219,rating:4.5,desc:'Grilled ciabatta with aged cheddar.',badge:'new'},
+];
+
+function renderCartPage() {
+  const cart = getCart();
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('navCartCount').textContent = count;
+  document.getElementById('cartItemCount').textContent = `${count} item${count!==1?'s':''}`;
+  document.getElementById('cartTotal').textContent = `Rs. ${total}`;
+  const empty = document.getElementById('cartEmpty');
+  const items = document.getElementById('cartItems');
+  empty.style.display = cart.length ? 'none' : 'flex';
+  items.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div>
+        <div class="cart-item-name">${item.emoji || ''} ${item.name}</div>
+        <div class="cart-item-price">Rs. ${item.price} each · Subtotal: Rs. ${item.price * item.qty}</div>
+      </div>
+      <div class="cart-qty">
+        <button onclick="updateCartQty(${item.id},-1)" aria-label="Remove one">−</button>
+        <span>${item.qty}</span>
+        <button onclick="updateCartQty(${item.id},1)" aria-label="Add one">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMiniMenu() {
+  const grid = document.getElementById('orderMiniMenu');
+  grid.innerHTML = menuItems.slice(0,6).map(item => `
+    <div style="background:var(--cream);border-radius:var(--radius);padding:.85rem;border:1px solid rgba(196,149,106,.2);display:flex;align-items:center;justify-content:space-between;gap:.5rem">
+      <div>
+        <div style="font-size:1.5rem;margin-bottom:.2rem">${item.emoji}</div>
+        <div style="font-weight:600;color:var(--text-dark);font-size:.85rem">${item.name}</div>
+        <div style="color:var(--coffee);font-size:.8rem;font-weight:600">Rs. ${item.price}</div>
+      </div>
+      <button class="menu-add" onclick='addToCart({id:${item.id},name:"${item.name}",price:${item.price},emoji:"${item.emoji}"});renderCartPage()'>+</button>
+    </div>
+  `).join('');
+}
+
+// Override placeOrder for this page (re-render cart after)
+const _origPlaceOrder = placeOrder;
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderCartPage();
+  renderMiniMenu();
+});
+
+// Chatbot basics
+const chatResponses={
+  'menu':()=>'We serve ☕ Coffee, 🍵 Tea, 🍰 Desserts & 🥐 Snacks. Check the menu page for the full selection!',
+  'hours':()=>'⏰ Mon–Fri: 7am–10pm · Sat–Sun: 8am–11pm',
+  'reserve':()=>'Visit the Reservation page to book your table!',
+  'location':()=>'📍 42 Brewed Boulevard, Patna, Bihar 800001',
+  'offers':()=>'🎁 Birthday Club: FREE dessert + 20% off · Happy Hour (3–5 PM): 15% off',
+  'rewards':()=>'🏆 Visit often, earn points, unlock Bronze/Silver/Gold perks!',
+  'recommend':()=>'Try our AI Recommender page for a personalized brew suggestion!',
+  'default':(msg)=>`Thanks! For detailed help, email hello@cafeaura.in. Try asking about our menu, hours, or offers!`,
+};
+const chatKnowledge={
+  'menu':['menu','food','drink','coffee','tea','dessert','eat','order'],
+  'hours':['hour','open','close','time','when'],
+  'reserve':['reserv','table','book','seat'],
+  'location':['where','address','location','find'],
+  'offers':['offer','deal','discount','happy hour'],
+  'rewards':['reward','point','loyalty','bronze','silver','gold'],
+  'recommend':['recommend','suggest','best','popular'],
+};
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
+  if(chatOpen&&document.getElementById('chatMessages').children.length===0){
+    setTimeout(()=>addMsg('Welcome to Cafe Luma! ☕ How can I help?','bot'),300);
+  }
+}
+function addMsg(text,type){
+  const msgs=document.getElementById('chatMessages');
+  const div=document.createElement('div');
+  div.className=`chat-msg ${type}`;div.textContent=text;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function getBotResponse(msg){
+  const lower=msg.toLowerCase();
+  for(const[key,kws]of Object.entries(chatKnowledge)){
+    if(kws.some(kw=>lower.includes(kw)))return chatResponses[key]?chatResponses[key](msg):'';
+  }
+  return chatResponses.default(msg);
+}
+function sendChat(){
+  const input=document.getElementById('chatInput');const msg=input.value.trim();if(!msg)return;
+  addMsg(msg,'user');input.value='';setTimeout(()=>addMsg(getBotResponse(msg),'bot'),600);
+}
+function sendQuickReply(topic){
+  const map={Menu:'Tell me about the menu',Hours:'What are your opening hours?',Reserve:'How do I reserve a table?',Offers:'What offers do you have?'};
+  addMsg(map[topic],'user');setTimeout(()=>addMsg(getBotResponse(map[topic]),'bot'),600);
+}
+</script>
+</body>
+</html>

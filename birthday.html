@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Club — Cafe Luma</title>
+<meta name="description" content="Join Cafe Luma's Birthday Club and celebrate your special day with exclusive perks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html" class="active">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Exclusive Membership</div>
+    <h1>Birthday <em>Club</em></h1>
+    <p>Celebrate your birthday with a little extra sweetness, special rewards, and a warm welcome that feels truly personal.</p>
+  </div>
+</div>
+
+<section style="background:var(--cream);position:relative;z-index:1">
+  <div class="container">
+    <div class="bday-grid reveal">
+      <div>
+        <div class="bday-form-wrap" id="bdayFormWrap">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--coffee);margin-bottom:1.5rem;font-size:1.3rem">Join the Club 🎂</h3>
+          <div class="form-field"><label>Full Name</label><input type="text" id="bdayName" placeholder="Your name"></div>
+          <div class="form-field"><label>Email Address</label><input type="email" id="bdayEmail" placeholder="your@email.com"></div>
+          <div class="form-field"><label>Birthday Date</label><input type="date" id="bdayDate"></div>
+          <button class="btn-primary" style="width:100%;margin-top:.5rem" onclick="joinBdayClub()">Join Birthday Club ✦</button>
+        </div>
+        <div class="bday-dashboard" id="bdayDashboard">
+          <span class="bday-cake">🎂</span>
+          <div class="bday-greeting" id="bdayGreeting">Happy Birthday!</div>
+          <p style="color:var(--text-light);font-size:.9rem;margin-bottom:1rem">You're officially part of the Cafe Luma Birthday Club</p>
+          <div class="bday-benefits">
+            <div class="bday-benefit"><span>🍰</span><span>Free Dessert Coupon on your birthday</span></div>
+            <div class="bday-benefit"><span>🎁</span><span>20% Birthday Discount all week</span></div>
+            <div class="bday-benefit"><span>💌</span><span>Personalized birthday message</span></div>
+          </div>
+          <div class="coupon">
+            <div style="font-size:.75rem;opacity:.7;margin-bottom:.25rem">Your Birthday Coupon</div>
+            <div class="coupon-code" id="couponCode">BDAY-LUMA-2025</div>
+            <div class="coupon-text">Valid on your birthday · Free Dessert + 20% off</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--coffee);font-size:1.3rem;margin-bottom:1rem">Your Birthday Perks</h3>
+        <p style="color:var(--text-light);font-size:.9rem;line-height:1.6;margin-bottom:1.5rem">Cafe Luma believes every birthday should be extraordinary. Join our exclusive club and make your special day truly memorable.</p>
+        <ul class="bday-perks">
+          <li>A complimentary dessert of your choice, baked fresh on your birthday</li>
+          <li>Exclusive 20% discount valid throughout your birthday week</li>
+          <li>A handwritten (virtual) birthday note from our head barista</li>
+          <li>Priority reservation on your birthday — no waiting!</li>
+          <li>A special mention on our Birthday Wall of Fame</li>
+          <li>Early access to seasonal menu launches</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="order.html">Order Now</a></li>
+      <li><a href="rewards.html">Rewards</a></li><li><a href="reservation.html">Reserve</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+<script src="shared.js"></script>
+<script>
+function joinBdayClub(){
+  const name=document.getElementById('bdayName').value.trim();
+  const email=document.getElementById('bdayEmail').value.trim();
+  const date=document.getElementById('bdayDate').value;
+  if(!name||!email||!date){showToast('Please fill all fields ✦');return;}
+  document.getElementById('bdayFormWrap').style.display='none';
+  const code='BDAY-'+name.slice(0,4).toUpperCase()+'-'+Math.floor(1000+Math.random()*9000);
+  document.getElementById('couponCode').textContent=code;
+  document.getElementById('bdayGreeting').textContent=`🎉 Welcome, ${name.split(' ')[0]}!`;
+  document.getElementById('bdayDashboard').classList.add('show');
+  showToast(`Welcome to the Birthday Club, ${name.split(' ')[0]}! 🎂`);
+}
+</script>
+</body>
+</html>

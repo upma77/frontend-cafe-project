@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rewards — Cafe Luma</title>
+<meta name="description" content="Earn points and unlock exclusive perks with Cafe Luma's Coffee Challenge rewards program.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html" class="active">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section id="challenge-section">
+  <div class="container">
+    <div class="challenge-grid">
+      <div class="reveal">
+        <div class="section-label" style="color:var(--gold)">Gamification</div>
+        <h1 class="section-title" style="color:var(--cream)">Coffee <em>Challenge</em></h1>
+        <p class="section-desc" style="color:rgba(255,248,240,.65);margin-bottom:1.5rem">Visit often, earn points, and unlock exclusive perks that turn your regular coffee run into a rewarding ritual.</p>
+        <div class="tiers" id="tiersContainer"></div>
+      </div>
+      <div class="challenge-card reveal">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.5rem">
+          <div>
+            <div class="pts-label">Your Points</div>
+            <div class="pts-display" id="ptsDisplay">0</div>
+          </div>
+          <div style="margin-left:auto;font-size:2.5rem" id="tierEmoji">☕</div>
+        </div>
+        <div style="font-size:.85rem;color:rgba(255,248,240,.6);margin-bottom:1rem" id="tierStatus">Start visiting to earn rewards!</div>
+        <div class="visit-input-area">
+          <input type="number" class="visit-input" id="visitCount" value="0" min="0" max="50" placeholder="0">
+          <span style="color:rgba(255,248,240,.6);font-size:.85rem">visits</span>
+          <button class="btn-primary" onclick="updateChallenge()" style="padding:.5rem 1rem;font-size:.85rem">Update</button>
+        </div>
+        <div style="height:1px;background:rgba(255,255,255,.08);margin:1rem 0"></div>
+        <div class="leaderboard">
+          <div class="lb-title">🏆 Top Members</div>
+          <div class="lb-row"><div class="lb-rank gold-rank">1</div><div class="lb-name">Priya Sharma</div><div class="lb-pts">3,200 pts</div></div>
+          <div class="lb-row"><div class="lb-rank">2</div><div class="lb-name">Arjun Mehta</div><div class="lb-pts">2,850 pts</div></div>
+          <div class="lb-row"><div class="lb-rank">3</div><div class="lb-name">Ananya Roy</div><div class="lb-pts">2,400 pts</div></div>
+          <div class="lb-row"><div class="lb-rank">4</div><div class="lb-name">Ravi Krishnan</div><div class="lb-pts">1,900 pts</div></div>
+          <div class="lb-row"><div class="lb-rank">5</div><div class="lb-name">Sneha Patel</div><div class="lb-pts">1,650 pts</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="order.html">Order Now</a></li>
+      <li><a href="birthday.html">Birthday Club</a></li><li><a href="reservation.html">Reserve</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+<script src="shared.js"></script>
+<script>
+const tierData=[
+  {name:'Bronze Member',emoji:'🥉',visits:5,reward:'Free drink upgrade on any order',color:'#CD7F32'},
+  {name:'Silver Member',emoji:'🥈',visits:15,reward:'10% off all orders, priority seating',color:'#C0C0C0'},
+  {name:'Gold Member',emoji:'🥇',visits:30,reward:'VIP perks, free monthly cake & more',color:'#FFD700'},
+];
+function renderTiers(visits){
+  document.getElementById('tiersContainer').innerHTML=tierData.map(t=>{
+    const pct=Math.min(100,Math.round(visits/t.visits*100));
+    const active=visits>=t.visits;
+    return`<div class="tier ${active?'active':''}">
+      <div class="tier-header">
+        <div class="tier-badge">${t.emoji}</div>
+        <div><div class="tier-name" style="color:${active?t.color:'var(--cream)'}">${t.name}</div><div class="tier-visits">${t.visits} visits required</div></div>
+        ${active?`<div style="margin-left:auto;font-size:.75rem;background:rgba(255,255,255,.1);padding:.2rem .5rem;border-radius:50px;color:${t.color}">Unlocked ✓</div>`:''}
+      </div>
+      <div class="tier-bar"><div class="tier-fill" style="width:${pct}%;background:linear-gradient(90deg,${t.color}88,${t.color})"></div></div>
+      <div class="tier-reward">🎁 ${t.reward} · ${active?'Yours!':visits+'/'+t.visits+' visits'}</div>
+    </div>`;
+  }).join('');
+}
+function updateChallenge(){
+  const v=Math.max(0,parseInt(document.getElementById('visitCount').value)||0);
+  const pts=v*100;
+  document.getElementById('ptsDisplay').textContent=pts.toLocaleString();
+  let emoji='☕',status='Keep visiting to earn rewards!';
+  if(v>=30){emoji='🥇';status='Gold Member — Maximum VIP status achieved!';}
+  else if(v>=15){emoji='🥈';status='Silver Member — Getting closer to Gold!';}
+  else if(v>=5){emoji='🥉';status='Bronze Member — You\'re on the board!';}
+  document.getElementById('tierEmoji').textContent=emoji;
+  document.getElementById('tierStatus').textContent=status;
+  renderTiers(v);
+  if(v===5||v===15||v===30)showToast('🎉 New tier unlocked! Congratulations!');
+}
+renderTiers(0);
+</script>
+</body>
+</html>

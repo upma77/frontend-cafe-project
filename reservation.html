@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reserve a Table — Cafe Luma</title>
+<meta name="description" content="Reserve your table at Cafe Luma. Check live seating availability and book online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html" class="active">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta" style="background:var(--coffee);color:var(--cream)">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Book Your Spot</div>
+    <h1>Reserve a <em>Table</em></h1>
+    <p>Secure your perfect moment at Cafe Luma. Tables fill up fast on weekends!</p>
+  </div>
+</div>
+
+<!-- SEATING -->
+<section style="background:var(--cream);position:relative;z-index:1">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <div class="section-label">Real-Time Info</div>
+      <h2 class="section-title">Table <em>Availability</em></h2>
+      <p class="section-desc" style="margin:0 auto">Check live table availability in seconds. Green means open, red means occupied.</p>
+    </div>
+    <div class="availability-stats reveal">
+      <div class="stat-mini"><div class="stat-mini-icon">✓</div><div class="stat-mini-number" id="availableCount">0</div><div class="stat-mini-label">Available</div></div>
+      <div class="stat-mini"><div class="stat-mini-icon">⊙</div><div class="stat-mini-number" id="occupiedCount">0</div><div class="stat-mini-label">Occupied</div></div>
+      <div class="stat-mini"><div class="stat-mini-icon">👥</div><div class="stat-mini-number" id="totalSeats">0</div><div class="stat-mini-label">Total Seats</div></div>
+    </div>
+    <div class="tables-grid reveal" id="tablesGrid"></div>
+  </div>
+</section>
+
+<!-- RESERVATION FORM -->
+<section style="background:var(--beige);position:relative;z-index:1">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <div class="section-label">Make a Reservation</div>
+      <h2 class="section-title">Book Your <em>Table</em></h2>
+    </div>
+    <div class="res-card reveal">
+      <div id="resForm">
+        <div class="res-grid">
+          <div class="form-field"><label>Your Name</label><input type="text" id="resName" placeholder="Full name"></div>
+          <div class="form-field"><label>Email</label><input type="email" id="resEmail" placeholder="your@email.com"></div>
+          <div class="form-field"><label>Date</label><input type="date" id="resDate"></div>
+          <div class="form-field"><label>Time</label><input type="time" id="resTime" value="18:00"></div>
+          <div class="form-field"><label>Number of Guests</label><input type="number" id="resGuests" min="1" max="20" value="2" placeholder="2"></div>
+          <div class="form-field"><label>Special Requests</label><input type="text" id="resSpecial" placeholder="Any dietary needs or occasions?"></div>
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:1rem;font-size:.95rem;padding:1rem" onclick="makeReservation()">Confirm Reservation ✦</button>
+      </div>
+      <div class="res-success" id="resSuccess">
+        <div class="res-success-icon">✅</div>
+        <div class="res-success-title">Reservation Confirmed!</div>
+        <p class="res-success-msg" id="resConfirmMsg">We look forward to welcoming you.</p>
+        <button class="btn-outline" style="margin-top:1.5rem" onclick="resetReservation()">Make Another Reservation</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="order.html">Order Now</a></li>
+      <li><a href="events.html">Events</a></li><li><a href="birthday.html">Birthday Club</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+<script src="shared.js"></script>
+<script>
+const tables=[
+  {id:1,seats:2,status:'available',location:'Window Side'},{id:2,seats:2,status:'occupied',location:'Window Side'},
+  {id:3,seats:4,status:'available',location:'Main Area'},{id:4,seats:4,status:'occupied',location:'Main Area'},
+  {id:5,seats:2,status:'available',location:'Corner'},{id:6,seats:6,status:'available',location:'Group Area'},
+  {id:7,seats:2,status:'occupied',location:'Entrance'},{id:8,seats:4,status:'available',location:'Main Area'},
+  {id:9,seats:2,status:'available',location:'Quiet Zone'},{id:10,seats:3,status:'occupied',location:'Group Area'},
+];
+function renderTables(){
+  document.getElementById('tablesGrid').innerHTML=tables.map(t=>`
+    <div class="table-card ${t.status}" onclick="selectTable(${t.id})">
+      <div class="table-number">Table ${t.id}</div>
+      <div class="table-status-badge">${t.status==='available'?'✓ Available':'⊙ Occupied'}</div>
+      <div class="table-info">
+        <span class="table-seats">👥 ${t.seats} Seats</span>
+        <span class="table-location">📍 ${t.location}</span>
+      </div>
+    </div>
+  `).join('');
+  const available=tables.filter(t=>t.status==='available').length;
+  const occupied=tables.filter(t=>t.status==='occupied').length;
+  document.getElementById('availableCount').textContent=available;
+  document.getElementById('occupiedCount').textContent=occupied;
+  document.getElementById('totalSeats').textContent=tables.reduce((s,t)=>s+t.seats,0);
+}
+function selectTable(id){
+  const table=tables.find(t=>t.id===id);
+  if(table.status==='occupied'){showToast('Sorry, this table is currently occupied. Check back soon!');}
+  else{showToast(`Table ${id} selected! Scroll down to complete your reservation.`);document.getElementById('resGuests').value=table.seats;document.querySelector('.res-card').scrollIntoView({behavior:'smooth'});}
+}
+renderTables();
+setInterval(()=>{const r=Math.floor(Math.random()*tables.length);tables[r].status=tables[r].status==='available'?'occupied':'available';renderTables();},15000);
+
+function makeReservation(){
+  const name=document.getElementById('resName').value.trim();
+  const date=document.getElementById('resDate').value;
+  const time=document.getElementById('resTime').value;
+  const guests=document.getElementById('resGuests').value;
+  if(!name||!date||!time){showToast('Please fill required fields ✦');return;}
+  document.getElementById('resForm').style.display='none';
+  document.getElementById('resConfirmMsg').innerHTML=`Dear <strong>${name}</strong>, your table for <strong>${guests} guest${guests>1?'s':''}</strong> is confirmed for <strong>${new Date(date).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})}</strong> at <strong>${time}</strong>. We look forward to welcoming you!`;
+  document.getElementById('resSuccess').classList.add('show');
+  showToast('Reservation confirmed! See you soon ✦');
+}
+function resetReservation(){
+  document.getElementById('resForm').style.display='block';
+  document.getElementById('resSuccess').classList.remove('show');
+  ['resName','resEmail','resSpecial'].forEach(id=>document.getElementById(id).value='');
+}
+</script>
+</body>
+</html>

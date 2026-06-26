@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Cafe Luma</title>
+<meta name="description" content="Explore Cafe Luma through our gallery — moments of coffee, desserts, interiors and events.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Visual Journey</div>
+    <h1>Moments at <em>Cafe Luma</em></h1>
+    <p>Every cup tells a story, every corner creates a memory. Explore our world through the lens of those who visit us.</p>
+  </div>
+</div>
+
+<!-- STATS -->
+<section style="background:var(--cream);padding:3rem 2rem;position:relative;z-index:1">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card reveal"><div class="stat-icon">☕</div><div class="stat-number">10,000+</div><div class="stat-label">Cups Served</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🍰</div><div class="stat-number">50+</div><div class="stat-label">Desserts</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">⭐</div><div class="stat-number">4.9</div><div class="stat-label">Rating</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">❤️</div><div class="stat-number">5,000+</div><div class="stat-label">Happy Customers</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:var(--beige);position:relative;z-index:1">
+  <div class="container">
+    <div class="gallery-filters reveal">
+      <button class="gallery-filter-btn active" data-filter="all">All Moments</button>
+      <button class="gallery-filter-btn" data-filter="coffee">☕ Coffee</button>
+      <button class="gallery-filter-btn" data-filter="beverage">🧃 Beverages</button>
+      <button class="gallery-filter-btn" data-filter="dessert">🍰 Desserts</button>
+      <button class="gallery-filter-btn" data-filter="interior">🏛️ Interior</button>
+      <button class="gallery-filter-btn" data-filter="events">🎤 Events</button>
+    </div>
+    <div class="gallery-grid reveal" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section style="background:var(--cream);padding:5rem 2rem;position:relative;z-index:1">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <h2 class="section-title">Share Your <em>Luma Moment</em></h2>
+      <p class="section-desc" style="margin:0 auto">Tag <strong>#CafeLumaMoments</strong> and your photo could be featured here</p>
+    </div>
+    <div class="instagram-grid reveal">
+      <a href="#" class="ig-item" style="background-image:url(img/c1.jpg)"></a>
+      <a href="#" class="ig-item" style="background-image:url(img/d1.jpg)"></a>
+      <a href="#" class="ig-item" style="background-image:url(img/p1.webp)"></a>
+      <a href="#" class="ig-item" style="background-image:url(img/c4.jpg)"></a>
+      <a href="#" class="ig-item" style="background-image:url(img/d2.jpg)"></a>
+      <a href="#" class="ig-item" style="background-image:url(img/b1.jpg)"></a>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:2.5rem">
+      <a href="#" class="btn-primary">Follow @CafeLuma on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation();prevLightbox()">‹</button>
+  <div class="lightbox-inner" id="lightboxContent"></div>
+  <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation();nextLightbox()">›</button>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="order.html">Order Now</a></li>
+      <li><a href="events.html">Events</a></li><li><a href="reservation.html">Reserve</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+<script src="shared.js"></script>
+<script>
+const galleryItems=[
+  {img:'img/c1.jpg',cat:'coffee',alt:'Signature Latte',desc:'Freshly brewed every morning'},
+  {img:'img/c2.webp',cat:'coffee',alt:'Espresso Shot',desc:'Rich and bold'},
+  {img:'img/c4.jpg',cat:'coffee',alt:'Cold Brew',desc:'18-hour perfection'},
+  {img:'img/c5.jpg',cat:'coffee',alt:'Cappuccino',desc:'Velvety smooth'},
+  {img:'img/1.jpg',cat:'interior',alt:'Cafe Interior',desc:'Cozy ambiance'},
+  {img:'img/b1.jpg',cat:'beverage',alt:'Signature Beverage',desc:'House specialty'},
+  {img:'img/b2.jpg',cat:'beverage',alt:'Iced Drink',desc:'Cool refreshment'},
+  {img:'img/d1.jpg',cat:'dessert',alt:'Signature Cake',desc:'Baked fresh daily'},
+  {img:'img/d2.jpg',cat:'dessert',alt:'Tiramisu',desc:'Italian classic'},
+  {img:'img/d3.webp',cat:'dessert',alt:'Brownie',desc:'Fudgy delight'},
+  {img:'img/d4.webp',cat:'dessert',alt:'Pastry',desc:'Crispy layers'},
+  {img:'img/d5.png',cat:'dessert',alt:'Dessert',desc:'Sweet moment'},
+  {img:'img/dv1.png',cat:'interior',alt:'Display',desc:'Visual delight'},
+  {img:'img/p1.webp',cat:'events',alt:'Live Music Night',desc:'Weekend vibes'},
+  {img:'img/p2.jpg',cat:'events',alt:'Event Moment',desc:'Community gathering'},
+];
+let currentLightboxIndex=0;
+let activeFilter='all';
+function renderGallery(filter='all'){
+  activeFilter=filter;
+  const filtered=filter==='all'?galleryItems:galleryItems.filter(g=>g.cat===filter);
+  document.getElementById('galleryGrid').innerHTML=filtered.map((g,i)=>`
+    <div class="gallery-item" data-cat="${g.cat}" onclick="openLightbox('${g.img}','${g.alt}')">
+      <img src="${g.img}" alt="${g.alt}" class="gallery-img" loading="lazy">
+      <div class="gallery-overlay"><div class="overlay-content">
+        <div class="overlay-title">☕ ${g.alt}</div>
+        <div class="overlay-desc">${g.desc}</div>
+        <div class="overlay-cta">→ View Full</div>
+      </div></div>
+    </div>
+  `).join('');
+}
+document.querySelectorAll('.gallery-filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.gallery-filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');renderGallery(btn.dataset.filter);
+  });
+});
+renderGallery();
+function openLightbox(img,alt){
+  currentLightboxIndex=galleryItems.findIndex(g=>g.img===img);
+  const item=galleryItems[currentLightboxIndex];
+  document.getElementById('lightboxContent').innerHTML=`
+    <div class="lightbox-item">
+      <img src="${img}" alt="${alt}" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:12px">
+      <div class="lightbox-info">
+        <div class="lightbox-title">${item.alt}</div>
+        <div style="font-size:.9rem;color:rgba(255,248,240,.8)">${item.desc}</div>
+        <div style="font-size:.8rem;color:var(--gold);margin-top:.5rem">${currentLightboxIndex+1} / ${galleryItems.length}</div>
+      </div>
+    </div>`;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+function nextLightbox(){currentLightboxIndex=(currentLightboxIndex+1)%galleryItems.length;const i=galleryItems[currentLightboxIndex];openLightbox(i.img,i.alt);}
+function prevLightbox(){currentLightboxIndex=(currentLightboxIndex-1+galleryItems.length)%galleryItems.length;const i=galleryItems[currentLightboxIndex];openLightbox(i.img,i.alt);}
+</script>
+</body>
+</html>

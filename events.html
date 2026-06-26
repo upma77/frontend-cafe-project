@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events & Reviews — Cafe Luma</title>
+<meta name="description" content="Discover events, live music, and community experiences at Cafe Luma. Read and share reviews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html" class="active">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="section-label">Community & Culture</div>
+    <h1>Events & <em>Experiences</em></h1>
+    <p>More than just coffee — a welcoming space for music, stories, slow afternoons, and memorable evenings.</p>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<section style="background:var(--beige);position:relative;z-index:1">
+  <div class="container">
+    <div class="events-grid" id="eventsGrid"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section style="background:var(--cream);position:relative;z-index:1">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <div class="section-label">Share Your Experience</div>
+      <h2 class="section-title">Rate Cafe <em>Luma</em></h2>
+      <p class="section-desc" style="margin:0 auto">Share your experience and help fellow guests discover the flavors, comfort, and atmosphere that make Cafe Luma special.</p>
+    </div>
+    <div class="review-system reveal">
+      <div class="rating-summary">
+        <div class="rating-number" id="averageRating">4.9</div>
+        <div class="rating-stars" id="averageStars">★★★★★</div>
+        <div class="rating-count" id="ratingCount">8 reviews</div>
+      </div>
+      <div class="review-form-card">
+        <div class="form-field"><label>Your Name</label><input type="text" id="reviewName" placeholder="Your name"></div>
+        <div class="form-field">
+          <label>Your Rating</label>
+          <div class="star-picker" id="starPicker">
+            <button type="button" class="star-btn active" data-rating="1">★</button>
+            <button type="button" class="star-btn active" data-rating="2">★</button>
+            <button type="button" class="star-btn active" data-rating="3">★</button>
+            <button type="button" class="star-btn active" data-rating="4">★</button>
+            <button type="button" class="star-btn active" data-rating="5">★</button>
+          </div>
+        </div>
+        <div class="form-field"><label>Leave a Review</label><textarea id="reviewText" placeholder="What did you love about your visit?"></textarea></div>
+        <button class="btn-primary review-submit" onclick="submitReview()">Submit Review</button>
+      </div>
+      <div class="recent-reviews" id="recentReviews"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="order.html">Order Now</a></li>
+      <li><a href="birthday.html">Birthday Club</a></li><li><a href="reservation.html">Reserve</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+<script src="shared.js"></script>
+<script>
+const events=[
+  {icon:'🎤',name:'Open Mic Night',date:'Every Friday · 7 PM',desc:'Take the stage or simply enjoy the show. Emerging artists, spoken word poets, and open jam sessions.',seats:'12 seats left',cat:'Music'},
+  {icon:'📖',name:'Poetry & Prose Evening',date:'2nd & 4th Sat · 6 PM',desc:'Celebrate the written word. Read your own work or listen to invited poets in our cozy alcove setting.',seats:'8 seats left',cat:'Literature'},
+  {icon:'🎵',name:'Jazz Sundays',date:'Every Sunday · 4 PM',desc:'Sip your favorite brew while a live jazz trio fills the air. Perfect Sunday evening ritual.',seats:'20 seats left',cat:'Music'},
+  {icon:'📚',name:'Quiet Study Sessions',date:'Mon–Thu · 10 AM–2 PM',desc:'Productivity-focused mornings with focus music, unlimited refills, and a distraction-free environment.',seats:'Unlimited',cat:'Productivity'},
+];
+document.getElementById('eventsGrid').innerHTML=events.map(e=>`
+  <div class="event-card reveal">
+    <div class="event-header">
+      <span class="event-icon">${e.icon}</span>
+      <div class="event-name">${e.name}</div>
+      <span class="event-date-tag">📅 ${e.date}</span>
+    </div>
+    <div class="event-body">
+      <div class="event-desc">${e.desc}</div>
+      <div class="event-meta">
+        <span>👥 ${e.seats}</span>
+        <button class="event-register" onclick="showToast('Registered for ${e.name}! See you there 🎉')">Register →</button>
+      </div>
+    </div>
+  </div>
+`).join('');
+
+// Re-observe dynamically added elements
+setTimeout(()=>initReveal(),100);
+
+const reviews=[
+  {text:"Honestly the best coffee I've had outside of Italy. The Hazelnut Cold Brew is life-changing.",author:'Priya S.',date:'2 days ago',stars:5,color:'#8B5E3C',initials:'PS'},
+  {text:'Stunning ambiance, incredibly helpful staff, and the Tiramisu is simply divine. My new favorite spot!',author:'Rahul M.',date:'1 week ago',stars:5,color:'#C4956A',initials:'RM'},
+  {text:'The Birthday Club perks are amazing! Got a free dessert and felt so special. Highly recommend.',author:'Ananya K.',date:'3 days ago',stars:5,color:'#3D1E0F',initials:'AK'},
+  {text:'The Cardamom Chai alone is worth the visit. Perfect balance of spices. Coming back tomorrow!',author:'Deepa R.',date:'5 days ago',stars:5,color:'#8B5E3C',initials:'DR'},
+  {text:'Attended the Open Mic Night and was blown away. Great coffee, great vibes, great people.',author:'Arjun T.',date:'2 weeks ago',stars:5,color:'#5C3D2E',initials:'AT'},
+  {text:'The Aura Assistant chatbot helped me pick the perfect drink. AI + coffee = perfect combo!',author:'Meera J.',date:'4 days ago',stars:4,color:'#C4956A',initials:'MJ'},
+];
+let selectedReviewRating=5;
+function getInitials(name){return name.split(' ').filter(Boolean).slice(0,2).map(p=>p[0].toUpperCase()).join('')||'CL';}
+function getStars(rating){return'★'.repeat(rating)+'☆'.repeat(5-rating);}
+function updateStarPicker(rating){
+  selectedReviewRating=rating;
+  document.querySelectorAll('.star-btn').forEach(btn=>{btn.classList.toggle('active',Number(btn.dataset.rating)<=rating);});
+}
+function renderReviewSystem(){
+  const total=reviews.reduce((s,r)=>s+r.stars,0);
+  const avg=(total/reviews.length).toFixed(1);
+  document.getElementById('averageRating').textContent=avg;
+  document.getElementById('averageStars').textContent=getStars(Math.round(avg));
+  document.getElementById('ratingCount').textContent=`${reviews.length} review${reviews.length===1?'':'s'}`;
+  document.getElementById('recentReviews').innerHTML=reviews.slice(0,6).map(r=>`
+    <div class="review-card">
+      <div class="review-stars">${getStars(r.stars)}</div>
+      <div class="review-text">"${r.text}"</div>
+      <div class="review-author">
+        <div class="review-avatar" style="background:${r.color}">${r.initials}</div>
+        <div><div class="review-name">${r.author}</div><div class="review-date">${r.date}</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+document.querySelectorAll('.star-btn').forEach(btn=>btn.addEventListener('click',()=>updateStarPicker(Number(btn.dataset.rating))));
+function submitReview(){
+  const name=document.getElementById('reviewName').value.trim();
+  const text=document.getElementById('reviewText').value.trim();
+  if(!name||!text){showToast('Please add your name and review before submitting.');return;}
+  reviews.unshift({text,author:name,date:'Just now',stars:selectedReviewRating,color:'#8B5E3C',initials:getInitials(name)});
+  document.getElementById('reviewName').value='';document.getElementById('reviewText').value='';
+  updateStarPicker(5);renderReviewSystem();showToast('Thank you for sharing your review!');
+}
+renderReviewSystem();
+</script>
+</body>
+</html>

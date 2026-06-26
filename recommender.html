@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Recommender — Cafe Luma</title>
+<meta name="description" content="Find your perfect brew with Cafe Luma's AI-powered drink recommender.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html" class="active">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section id="ai-section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <div class="section-label" style="color:var(--gold)">Powered by AI</div>
+      <h1 class="section-title" style="color:var(--cream)">Find Your <em>Perfect</em> Brew</h1>
+      <p class="section-desc" style="color:rgba(255,248,240,.65);margin:0 auto">Answer a few quick questions and let our smart assistant suggest the perfect brew for your mood, taste, and moment.</p>
+    </div>
+    <div class="ai-card reveal">
+      <div class="ai-progress" id="aiProgress">
+        <div class="ai-prog-dot done"></div>
+        <div class="ai-prog-dot"></div>
+        <div class="ai-prog-dot"></div>
+        <div class="ai-prog-dot"></div>
+      </div>
+      <div class="ai-step active" data-step="1">
+        <div class="ai-question">What's your taste preference?</div>
+        <div class="ai-hint">Think about your usual morning cup...</div>
+        <div class="ai-options">
+          <div class="ai-opt" data-val="sweet"><span class="ai-opt-icon">🍬</span><span class="ai-opt-label">Sweet</span></div>
+          <div class="ai-opt" data-val="bitter"><span class="ai-opt-icon">☕</span><span class="ai-opt-label">Bitter / Bold</span></div>
+        </div>
+      </div>
+      <div class="ai-step" data-step="2">
+        <div class="ai-question">Temperature preference?</div>
+        <div class="ai-hint">Warm hug or refreshing chill?</div>
+        <div class="ai-options">
+          <div class="ai-opt" data-val="hot"><span class="ai-opt-icon">🔥</span><span class="ai-opt-label">Hot</span></div>
+          <div class="ai-opt" data-val="cold"><span class="ai-opt-icon">🧊</span><span class="ai-opt-label">Cold / Iced</span></div>
+        </div>
+      </div>
+      <div class="ai-step" data-step="3">
+        <div class="ai-question">Coffee or non-coffee?</div>
+        <div class="ai-hint">Are you a coffee purist or open to alternatives?</div>
+        <div class="ai-options">
+          <div class="ai-opt" data-val="coffee"><span class="ai-opt-icon">☕</span><span class="ai-opt-label">Coffee</span></div>
+          <div class="ai-opt" data-val="noncoffee"><span class="ai-opt-icon">🫖</span><span class="ai-opt-label">Non-Coffee</span></div>
+        </div>
+      </div>
+      <div class="ai-step" data-step="4">
+        <div class="ai-question">What's your goal?</div>
+        <div class="ai-hint">What are you looking for right now?</div>
+        <div class="ai-options">
+          <div class="ai-opt" data-val="energy"><span class="ai-opt-icon">⚡</span><span class="ai-opt-label">Energy Boost</span></div>
+          <div class="ai-opt" data-val="relax"><span class="ai-opt-icon">🌿</span><span class="ai-opt-label">Relaxation</span></div>
+        </div>
+      </div>
+      <div class="ai-step" data-step="result">
+        <div class="ai-result" id="aiResult"></div>
+        <button class="ai-restart" id="aiRestart">✦ Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links">
+      <li><a href="index.html">Our Menu</a></li><li><a href="order.html">Order Now</a></li>
+      <li><a href="birthday.html">Birthday Club</a></li><li><a href="reservation.html">Reserve</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+      <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Newsletter</h4>
+      <div class="newsletter-form"><input type="email" placeholder="your@email.com"><button onclick="showToast('Subscribed! ✦')">Subscribe</button></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p></div>
+</footer>
+
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+
+<script src="shared.js"></script>
+<script>
+const aiRecs={
+  'sweet-hot-coffee-energy':{name:'Caramel Macchiato',emoji:'☕',desc:'Sweet caramel layers over fresh espresso with steamed milk — your ideal energizing morning pick-me-up.'},
+  'sweet-hot-coffee-relax':{name:'Honey Lavender Latte',emoji:'🌸',desc:'Gentle espresso wrapped in floral lavender and wildflower honey — pure relaxation in a cup.'},
+  'sweet-cold-coffee-energy':{name:'Hazelnut Cold Brew',emoji:'🧋',desc:'Bold 18-hour cold brew with sweet hazelnut — refreshing energy that powers through your afternoon.'},
+  'sweet-cold-coffee-relax':{name:'Iced Vanilla Latte',emoji:'🍦',desc:'Smooth, sweet, and effortlessly refreshing. A perfectly balanced cold coffee for a peaceful moment.'},
+  'sweet-hot-noncoffee-energy':{name:'Masala Chai',emoji:'🍵',desc:'Spiced Darjeeling chai with ginger and cardamom — traditional energy, no coffee needed.'},
+  'sweet-hot-noncoffee-relax':{name:'Rose Hibiscus Tea',emoji:'🌹',desc:'A floral, calming blend that soothes the mind and delights the senses.'},
+  'sweet-cold-noncoffee-energy':{name:'Mango Iced Tea',emoji:'🥭',desc:'Tropical burst of Alphonso mango with chilled green tea — fruity energy in every sip.'},
+  'sweet-cold-noncoffee-relax':{name:'Iced Matcha Latte',emoji:'🍃',desc:'Ceremonial matcha with oat milk over ice — gentle calm meets subtle sweetness.'},
+  'bitter-hot-coffee-energy':{name:'Signature Double Espresso',emoji:'☕',desc:'Pure, unadulterated espresso — dark, bold, and precisely what your morning demands.'},
+  'bitter-hot-coffee-relax':{name:'Americano',emoji:'☕',desc:'Espresso diluted to a smooth black canvas. Slow down and savor every sip.'},
+  'bitter-cold-coffee-energy':{name:'Nitro Cold Brew',emoji:'🥛',desc:'Nitrogen-infused cold brew — maximum caffeine, zero compromise.'},
+  'bitter-cold-coffee-relax':{name:'Cold Brew Black',emoji:'🧊',desc:'Pure cold brew, chilled and undiluted. For the coffee minimalist.'},
+  'bitter-hot-noncoffee-energy':{name:'Strong Ginger Lemon Tea',emoji:'🍋',desc:'Bracing, bold, and invigorating — ginger heat meets citrus brightness.'},
+  'bitter-hot-noncoffee-relax':{name:'Chamomile Honey Tea',emoji:'🌼',desc:'Gently bitter chamomile with a whisper of honey. The ultimate relaxation ritual.'},
+  'bitter-cold-noncoffee-energy':{name:'Green Tea Sparkling',emoji:'💚',desc:'Effervescent green tea with antioxidants — clean energy, crisp and refreshing.'},
+  'bitter-cold-noncoffee-relax':{name:'Iced Earl Grey',emoji:'🫖',desc:'Bergamot-forward Earl Grey over ice — sophisticated and calming.'},
+};
+const aiRecImages={
+  'Caramel Macchiato':{img:'img/c1.jpg',position:'50% 45%'},
+  'Honey Lavender Latte':{img:'img/honey.webp',position:'50% 45%'},
+  'Hazelnut Cold Brew':{img:'img/hazelnut.jpg',position:'50% 50%'},
+  'Iced Vanilla Latte':{img:'img/b2.jpg',position:'50% 48%'},
+  'Masala Chai':{img:'img/chai.jpg',position:'50% 50%'},
+  'Rose Hibiscus Tea':{img:'img/rose%20chai.jpg',position:'50% 50%'},
+  'Mango Iced Tea':{img:'img/b1.jpg',position:'50% 50%'},
+  'Iced Matcha Latte':{img:'img/Matcha%20Mist.jpg',position:'50% 50%'},
+  'Signature Double Espresso':{img:'img/espresso.jpg',position:'50% 50%'},
+  'Americano':{img:'img/c2.webp',position:'50% 50%'},
+  'Nitro Cold Brew':{img:'img/c4.jpg',position:'50% 48%'},
+  'Cold Brew Black':{img:'img/hazelnut.jpg',position:'50% 50%'},
+  'Strong Ginger Lemon Tea':{img:'img/chai.jpg',position:'50% 50%'},
+  'Chamomile Honey Tea':{img:'img/rose%20chai.jpg',position:'50% 50%'},
+  'Green Tea Sparkling':{img:'img/Matcha%20Mist.jpg',position:'50% 50%'},
+  'Iced Earl Grey':{img:'img/rose%20chai.jpg',position:'50% 50%'},
+  'Aura Special Blend':{img:'img/c5.jpg',position:'50% 50%'},
+};
+const aiAnswers={};let aiStep=1;
+function updateAIProgress(){document.querySelectorAll('.ai-prog-dot').forEach((dot,i)=>{dot.classList.toggle('done',i<aiStep)});}
+document.querySelectorAll('.ai-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    const step=parseInt(opt.closest('.ai-step').dataset.step);
+    const key=['','taste','temp','type','goal'][step];
+    aiAnswers[key]=opt.dataset.val;
+    if(step<4){
+      document.querySelector(`.ai-step[data-step="${step}"]`).classList.remove('active');
+      document.querySelector(`.ai-step[data-step="${step+1}"]`).classList.add('active');
+      aiStep=step+1;updateAIProgress();
+    } else {
+      const recKey=`${aiAnswers.taste}-${aiAnswers.temp}-${aiAnswers.type}-${aiAnswers.goal}`;
+      const rec=aiRecs[recKey]||{name:'Aura Special Blend',emoji:'✨',desc:"Our barista's secret creation — crafted just for adventurous souls like you!"};
+      const visual=aiRecImages[rec.name]||aiRecImages['Aura Special Blend'];
+      document.getElementById('aiResult').innerHTML=`
+        <div class="ai-result-img-wrap"><img class="ai-result-img" src="${visual.img}" alt="${rec.name}" style="object-position:${visual.position}"></div>
+        <div style="font-size:.8rem;color:rgba(255,248,240,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">We recommend</div>
+        <div class="ai-result-name">${rec.name}</div>
+        <div class="ai-result-desc">${rec.desc}</div>
+        <a href="order.html" class="btn-primary">Order Now →</a>
+      `;
+      document.querySelectorAll('.ai-step').forEach(s=>s.classList.remove('active'));
+      document.querySelector('.ai-step[data-step="result"]').classList.add('active');
+      aiStep=5;updateAIProgress();
+    }
+  });
+});
+document.getElementById('aiRestart').addEventListener('click',()=>{
+  aiStep=1;Object.keys(aiAnswers).forEach(k=>delete aiAnswers[k]);
+  document.querySelectorAll('.ai-step').forEach(s=>s.classList.remove('active'));
+  document.querySelector('.ai-step[data-step="1"]').classList.add('active');
+  updateAIProgress();
+});
+</script>
+</body>
+</html>

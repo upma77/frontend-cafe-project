@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Luma — Where Coffee Meets Connection</title>
+<meta name="description" content="Cafe Luma — Premium coffee experience with handcrafted beverages, artisan desserts, and an unforgettable atmosphere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-content">
+    <img src="img/logo.jpeg" id="preloader-logo" class="preloader-logo" alt="Cafe Luma Logo">
+    <div class="preloader-eq-container">
+      <span class="eq-label">✦ Brewing Something Special ✦</span>
+      <div class="eq-waves" id="eq-waves"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL DIAMOND CANVAS -->
+<canvas id="global-3d-canvas" class="global-3d-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="logo">Cafe <span>Luma</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Menu</a></li>
+    <li><a href="order.html">Order <span class="nav-cart-count" id="navCartCount">0</span></a></li>
+    <li><a href="recommender.html">Recommender</a></li>
+    <li><a href="birthday.html">Birthday Club</a></li>
+    <li><a href="rewards.html">Rewards</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reservation.html">Reserve</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reservation.html" class="nav-cta">Reserve a Table</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Patna's Cozy Coffee House ✦</div>
+    <h1 class="hero-title">Brewed for<br><em>slow mornings and bright days</em></h1>
+    <p class="hero-sub">Discover handcrafted coffees, fresh bakes, and warm conversations in a space designed for comfort, creativity, and unforgettable little moments.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">Browse the Menu</a>
+      <a href="reservation.html" class="btn-outline">Book Your Table</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-dot"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" style="position:relative;z-index:1;background:var(--beige)">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Freshly Crafted Daily</div>
+      <h2 class="section-title">Made for your <em>favorite rituals</em></h2>
+      <p class="section-desc">From rich espresso pours to delicate teas and baked treats, each offering is prepared with care, flavor, and a little bit of magic.</p>
+    </div>
+    <div class="menu-toolbar reveal">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="menuSearch" placeholder="Search drinks, desserts, snacks...">
+      </div>
+      <div class="menu-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="coffee">☕ Coffee</button>
+        <button class="filter-btn" data-filter="tea">🍵 Tea</button>
+        <button class="filter-btn" data-filter="dessert">🍰 Desserts</button>
+        <button class="filter-btn" data-filter="snack">🥐 Snacks</button>
+      </div>
+    </div>
+    <div class="bestsellers reveal">
+      <div class="section-label">Fan Favorites</div>
+      <div class="bestseller-grid" id="bestsellerGrid"></div>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;color:var(--gold);font-family:'Playfair Display',serif;font-weight:700">Cafe <span style="font-style:italic;color:var(--gold-light)">Luma</span></div>
+      <p>Where coffee meets connection. Handcrafted with love since 2018, serving premium coffee experiences daily.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Our Menu</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="birthday.html">Birthday Club</a></li>
+        <li><a href="rewards.html">Rewards</a></li>
+        <li><a href="reservation.html">Reserve</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Franchising</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <p style="color:rgba(255,248,240,0.5);font-size:.85rem;margin-bottom:.75rem">Get exclusive offers, new menu updates, and event invites.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com">
+        <button onclick="showToast('Subscribed! Welcome to the Luma family ✦')">Subscribe</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Cafe Luma. All rights reserved. Crafted with ☕ &amp; love.</p>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">💬</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-avatar">☕</div>
+    <div class="chat-header-info">
+      <div class="name">Luma Assistant</div>
+      <div class="status">● Online — here to help</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="quick-replies" id="quickReplies">
+    <button class="qr-btn" onclick="sendQuickReply('Menu')">📋 Menu</button>
+    <button class="qr-btn" onclick="sendQuickReply('Hours')">⏰ Hours</button>
+    <button class="qr-btn" onclick="sendQuickReply('Reserve')">🪑 Reserve</button>
+    <button class="qr-btn" onclick="sendQuickReply('Offers')">🎁 Offers</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div id="custom-cursor"></div>
+<div class="toast" id="toast"></div>
+
+<script src="shared.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
